@@ -41,6 +41,7 @@ export default function Home({
   return (
     <>
       <section className={style.container}>
+      <section className={style.container}>
         <h3>지금 추천하는 도서</h3>
         {recoBooks.map((book) => (
           <BookItem key={book.id} {...book} />
