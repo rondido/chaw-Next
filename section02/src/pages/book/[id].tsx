@@ -1,4 +1,9 @@
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import {
+  GetServerSidePropsContext,
+  GetStaticPropsContext,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+} from "next";
 import style from "./[id].module.css";
 import fetchOneBook from "@/lib/fetch-one-book";
 
@@ -14,9 +19,41 @@ const mockData = {
     "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg",
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+//getStaticPath 다이나믹한 경로를 설정
+
+export const getStaticPaths = () => {
+  return {
+    paths: [
+      { params: { id: "1" } },
+      { params: { id: "2" } },
+      { params: { id: "3" } },
+    ],
+    fallback: "blocking", //false not-found 페이지로 실행 1,2,3이 아니면 없는 페이지로 생각함.
+    //blocking 존재하지 않는 페이지를 이용하면 ssr로 이루어짐.
+    //사전 렌더링 시간이 길어지게 되면 어쩔 수 없이 loading이 발생
+
+    //fallback: true
+    //true 존재하지 않는 페이지를 요청 Props가 없는 페이지 반환
+    // 데이터가 없는 페이지
+    // 간단하게 생각하면 layout 정도만 사전 렌더링
+    //props 계싼
+    // props만 따로 반환 (데이터만 따로 반환)
+  };
+};
+
+// export const getServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ) => {
+//   const id = context.params!.id;
+//   const book = await fetchOneBook(Number(id));
+//   return {
+//     props: {
+//       book,
+//     },
+//   };
+// };
+
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const id = context.params!.id;
   const book = await fetchOneBook(Number(id));
   return {
@@ -28,7 +65,7 @@ export const getServerSideProps = async (
 
 export default function Page({
   book,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   if (!book) return "문제가 발생했어요 다시 시도하세요.";
   const { id, title, subTitle, description, author, publisher, coverImgUrl } =
     book;
