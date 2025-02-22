@@ -1,13 +1,14 @@
 //css module
 //기존의 css파일을 module처럼 사용할 수 있게 해준다.
-//import './index.css';
 import SearchableLayout from "@/components/searchable-layout";
 import style from "./index.module.css";
 import { ReactNode } from "react";
 import BookItem from "@/components/book-item";
-import { InferGetServerSidePropsType, InferGetStaticPropsType } from "next";
+import { InferGetStaticPropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import fetchRandomBooks from "@/lib/fetch-random-books";
+//SEO
+import Head from "next/head";
 
 //ssr로 동작
 // export const getServerSideProps = async () => {
@@ -59,6 +60,16 @@ export default function Home({
   //InferGetServerSidePropsType<typeof getServerSideProps>
   return (
     <>
+      <Head>
+        <title>한입북스</title>
+        {/* sns 공유 관련 메타 */}
+        <meta property="og:image" content="/thumbnail.png" />
+        <meta property="og:title" content="한입북스" />
+        <meta
+          property="og:description"
+          content="한입 북스에 등록된 도서들을 만나보세요"
+        />
+      </Head>
       <section className={style.container}>
         <h3>지금 추천하는 도서</h3>
         {recoBooks.map((book) => (
