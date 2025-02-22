@@ -146,3 +146,45 @@ dashbord-> 해당 프로젝트 선택 -> Restore Project button 클릭
 ![Image](https://github.com/user-attachments/assets/3cea1692-2cf8-4159-9c18-2da9c60c8161)
 
 ![Image](https://github.com/user-attachments/assets/d18f61c2-0057-4606-b7b9-5a02718dfb57)
+
+## ISR(증분 정적 재성성)
+
+단순히 그냥 ssg 방식으로 생성된 정적 페이지를 일정 시간을 주기로 다시 생성하는 방식
+
+ssg는 최신 데이터 방식을 업데이트하기 어렵다는 단점
+
+유통 기한을 설정할 수 있다.
+
+그 이후에는 다시 새롭게 해당 페이지를 정적으로 생성
+
+![Image](https://github.com/user-attachments/assets/9d858de0-bcce-4208-b080-bb56719d61b9)
+
+ISR 증분 정적 재성성에 적합하다.
+ssg 방식
+
+### ISR 주문형 재 검증
+
+시간 기반의 ISR을 적용하기 어려운 페이지도 존재 함.
+
+시간과 관계없이 사용자의 행동에 따라 데이터가 업데이트 되는 페이지
+
+커뮤니티 사이트의 게시글 페이지
+
+- 게시글 수정: 페이지 데이터를 업데이트 함.
+- 게시글 삭제: 페이지 데이터 삭제
+
+![Image](https://github.com/user-attachments/assets/e61ce096-644f-41d2-9c06-6639955ddacb)
+
+![Image](https://github.com/user-attachments/assets/0d56a0fa-1318-4447-84bf-da6fbd1a6c1c)
+
+SSR로 처리하면 안되나?
+
+![Image](https://github.com/user-attachments/assets/4aa5631c-41be-4cbb-8ac6-6009e6b534ad)
+
+동시접속자가 많다고 한다면 서버 부하 단점..
+
+### On-Demand ISR
+
+요청을 받을 때 마다 페이지를 다시 생성하는 ISR
+
+![Image](https://github.com/user-attachments/assets/70ae44c2-3d36-4024-9f56-369e06de507d)

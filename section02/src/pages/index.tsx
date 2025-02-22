@@ -46,6 +46,9 @@ export const getStaticProps = async () => {
       allBooks,
       recoBooks,
     },
+    // ISR 설정
+    // 3초 주기로 재 검증
+    // revalidate: 3, ISR 설정
   };
 };
 
