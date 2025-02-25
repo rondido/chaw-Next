@@ -188,3 +188,21 @@ SSR로 처리하면 안되나?
 요청을 받을 때 마다 페이지를 다시 생성하는 ISR
 
 ![Image](https://github.com/user-attachments/assets/70ae44c2-3d36-4024-9f56-369e06de507d)
+
+## React Server Component
+
+서버측에서만 실행되는 컴포넌트
+
+페이지의 대부분을 서버 컴포넌트로 구성할 것을 권장
+클라이언트 컴포넌트는 꼭 필요한 경우에만 사용할 것
+
+상호 작용 client component
+searchBar
+입력하고 state에 보건 enter onKeydown 이벤트 실행
+
+상호 작용 x server component
+header,
+추천,
+모든 도서,
+각 도서의 List
+Link는 html 고유의 기능
