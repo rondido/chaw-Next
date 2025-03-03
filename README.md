@@ -315,3 +315,28 @@ props로 보내줘야 함.
 App router 버전은 컴포넌트가 각각 자기가 필요한 데이터를 페칭해온다.
 
 각 다른 컴포넌트에서 동일한 데이터 페칭을 하게 된다.
+
+## 풀 라우트 캐시
+
+Next 서버측에서 빌드 타임에 특정 페이지의 렌더링 결과를 캐싱하는 기능
+
+![Image](https://github.com/user-attachments/assets/da8cd774-0be5-4ade-8296-6f2c0c982c46)
+
+Dynamic Page로 설정되는 기준
+
+1. 특정 페이지가 접속 요청을 받을 때 마다 매번 변화가 생기거나, 데이터가 달라질 경우
+
+클라이언트 컴포넌트는 페이지 유형에 영향을 미치지 않음.
+
+2. 동적 함수(쿠키,헤더,쿼리스트링)을 사용하는 컴포넌트가 있을 때
+
+static page로 설정되는 기준
+dynamic page가 아니면 무조건 static page로 설정됨.
+
+![Image](https://github.com/user-attachments/assets/ae8e2ff6-9a7f-4407-aa7c-c19991f09a9c)
+
+static page가 풀 라우트 캐시로 인해 브라우저에 렌더링 속도가 빠르기 때문에 권장된다.
+
+revalidate가 가능하다.
+
+특정 시간 주기로 재생성이 가능하다. (ISR처럼 갱신 가능)

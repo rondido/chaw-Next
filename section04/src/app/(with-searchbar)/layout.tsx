@@ -4,8 +4,10 @@ import Searchbar from "../../components/searchbar";
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div>
-      <Searchbar />
-      {children}
+      <Suspense fallback={<div>로딩...</div>}>
+        <Searchbar />
+      </Suspense>
+      /{children}
     </div>
   );
 }
