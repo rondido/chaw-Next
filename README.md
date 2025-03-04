@@ -354,3 +354,35 @@ revalidate가 가능하다.
 ![Image](https://github.com/user-attachments/assets/7dda9f21-cd8d-4dcc-b393-fb3f554311e4)
 
 페이지 이동의 최적화가 클라이언트 라우터 캐시
+
+## 스트리밍
+
+![Image](https://github.com/user-attachments/assets/f57b45f9-cc21-4b3e-80c7-d3246663c80d)
+
+개천,하천을 통해서 물가를 보내서 잘게 쪼개진 데이터를 연속적으로 보내는 방법
+
+![Image](https://github.com/user-attachments/assets/7fe6948a-bf62-4b83-82e9-c478c5636fcc)
+
+dynmic page에서 자주 사용 됨.
+
+오래 걸리지 않는 컴포넌트를 먼저 빠르게 렌더링하고
+
+오래 걸리는 작업은 Loading을 사용하여 사용자 경험 향상
+
+페이지 스트리밍
+
+오래 걸리는 컴포넌트의 렌더링을 사용자가 좀 더 좋은 환경에서 기다릴 수 있도록!
+
+빨리 렌더링 할 수 있는 컴포넌트들을 밑반찬 처럼 내주는 것
+
+### 주의 사항
+
+비동기로 설정된 페이지만 스트리밍이 실행된다.
+
+loading.tsx 파일은 page.tsx에서만 사용 가능하다.
+
+queryString 값만 바뀌게 되면 스트리밍이 동작하지 않는다.
+
+Suspense를 이용하여 쉽게 해결할 수 있다.
+
+Suspense key를 사용하여 쉽게 해결 가능
