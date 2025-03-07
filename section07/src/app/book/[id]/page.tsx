@@ -1,6 +1,10 @@
+import { createReviewAction } from "@/actions/create-review.action";
 import style from "./page.module.css";
 
 import { notFound } from "next/navigation";
+import { ReviewData } from "@/types";
+import ReviewItem from "@/components/review-item";
+import { ReviewEditor } from "@/components/review-editor";
 
 //4번 페이지로 이동시에는 바로 404 page로 이동
 //export const dynamicParams = false;
@@ -45,25 +49,21 @@ async function BookDetail({ bookId }: { bookId: string }) {
   );
 }
 
-function ReviewEditor() {
-  async function createReviewAction(formData: FormData) {
-    "use server";
-    const content = formData.get("content")?.toString();
-    const author = formData.get("author")?.toString();
-
-    // 서버액션을 이용하는 이유
-    // api 호출 해도 되는데 왜 사용하는 가?
-    // 코드가 매우 간결하다
-    // 오직 서버측에서만 실행되서 브라우저에서 호출만 하기 때문에 보안적으로 뛰어나다.
-    // 간결하고 편리하게 서버측에서 어떤 동작을 정의하는 데 있다.
+async function ReviewList({ bookId }: { bookId: string }) {
+  const reponse = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`
+  );
+  if (!reponse.ok) {
+    throw new Error(`review fetch failed`);
   }
+
+  const reviews: ReviewData[] = await reponse.json();
+
   return (
     <section>
-      <form action={createReviewAction}>
-        <input name="content" placeholder="리뷰 내용" />
-        <input name="author" placeholder="작성자" />
-        <button type="submit">작성하기</button>
-      </form>
+      {reviews.map((review) => (
+        <ReviewItem key={`review-item-${review.id}`} {...review} />
+      ))}
     </section>
   );
 }
@@ -76,7 +76,8 @@ export default async function Page({
   return (
     <div className={style.container}>
       <BookDetail bookId={(await params).id} />
-      <ReviewEditor />
+      <ReviewEditor bookId={(await params).id} />
+      <ReviewList bookId={(await params).id} />
     </div>
   );
 }
